@@ -6,14 +6,15 @@ Docker image
 ```dtd
 docker run --detach --name demo-mariadb --env MARIADB_ROOT_PASSWORD=my-secret-pw --port 3307:3306  mariadb:latest
 ```
-Create a demo user and database.
-```
+Create a demo user and database 
+> We can use `mariadb` shell in the container to enter the terminal by command: `docker exec -it demo-mariadb mariadb --user root -pmy-secret-pw`
+```sql
 CREATE DATABASE demo;
 CREATE USER 'demo'@localhost IDENTIFIED BY 'Demo@00001111';
 GRANT USAGE ON *.* TO 'demo'@localhost IDENTIFIED BY 'Demo@00001111';
 GRANT USAGE ON *.* TO 'demo'@'%' IDENTIFIED BY 'Demo@00001111';
-GRANT ALL privileges ON demo.* TO 'demo'@localhost 
-GRANT ALL privileges ON demo.* TO 'demo'@'%' 
+GRANT ALL privileges ON demo.* TO 'demo'@localhost;
+GRANT ALL privileges ON demo.* TO 'demo'@'%';
 FLUSH PRIVILEGES;
 ```
 
