@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CarResponse {
-    private Integer id;
+    private Long id;
     private String model;
     private UserResponse user;
 }

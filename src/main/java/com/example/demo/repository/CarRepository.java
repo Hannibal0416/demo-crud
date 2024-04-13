@@ -1,7 +1,7 @@
 package com.example.demo.repository;
 
-import com.example.demo.dao.Car;
-import com.example.demo.dao.User;
+import com.example.demo.entity.Car;
+import com.example.demo.entity.User;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface CarRepository extends CrudRepository<Car, Integer> {
+public interface CarRepository extends CrudRepository<Car, Long> {
     Iterable<Car> findAll(Pageable pageable);
     @Modifying(clearAutomatically = true)
     @Query("""
@@ -19,5 +19,5 @@ public interface CarRepository extends CrudRepository<Car, Integer> {
           SET c.user= :user 
           WHERE c.id = :carId
           """)
-    int updateUserIdById(@Param("user")User user, @Param("carId") Integer carId);
+    int updateUserIdById(@Param("user")User user, @Param("carId") Long carId);
 }

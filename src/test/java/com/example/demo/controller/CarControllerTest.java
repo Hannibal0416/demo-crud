@@ -1,8 +1,6 @@
 package com.example.demo.controller;
 
 
-import com.example.demo.dao.Car;
-import com.example.demo.dao.User;
 import com.example.demo.response.CarResponse;
 import com.example.demo.response.UserResponse;
 import com.example.demo.service.CarService;
@@ -45,18 +43,18 @@ public class CarControllerTest {
 
     @BeforeAll
     static void before() {
-        UserResponse user = new UserResponse(1, "u1", 1, null);
+        UserResponse user = new UserResponse(1L, "u1", 1, null);
         mockCars = new ArrayList<>() {
             {
-                add(new CarResponse(1, "model 1", user));
-                add(new CarResponse(2, "model 2", user));
+                add(new CarResponse(1L, "model 1", user));
+                add(new CarResponse(2L, "model 2", user));
             }
         };
     }
 
     @Test
     void getCars() throws Exception {
-        Mockito.when(carService.getCar(Mockito.anyInt(), Mockito.anyInt())).thenReturn(mockCars);
+        Mockito.when(carService.getAll(Mockito.anyInt(), Mockito.anyInt())).thenReturn(mockCars);
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/cars").accept(MediaType.APPLICATION_JSON);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
         String expected = """

@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserResponse {
-    private Integer id;
+    private Long id;
     private String name;
     private Integer age;
     private List<CarResponse> cars;

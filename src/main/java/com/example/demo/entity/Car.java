@@ -1,7 +1,6 @@
-package com.example.demo.dao;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
@@ -10,7 +9,7 @@ public class Car {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String model;
 
     @ManyToOne(fetch = FetchType.LAZY)
