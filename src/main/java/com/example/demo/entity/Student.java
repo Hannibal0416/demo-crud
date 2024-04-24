@@ -21,7 +21,10 @@ public class Student {
     @ManyToMany
     @JoinTable( name = "course_like",
             joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "course_id"))
+            inverseJoinColumns = @JoinColumn(name = "course_id"),
+            foreignKey = @ForeignKey(name="course_like_student_id_key", value = ConstraintMode.PROVIDER_DEFAULT),
+            inverseForeignKey = @ForeignKey(name="course_like_course_id_key", value = ConstraintMode.PROVIDER_DEFAULT)
+    )
     Set<Course> likedCourses;
 
 

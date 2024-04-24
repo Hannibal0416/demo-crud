@@ -12,7 +12,7 @@ public class Car {
     private Long id;
     private String model;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id", foreignKey= @ForeignKey(name="car_user_id_key", value = ConstraintMode.PROVIDER_DEFAULT))
     private User user;
 }

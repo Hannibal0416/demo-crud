@@ -10,14 +10,14 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "`user`")
+@Table(name = "\"user\"")
 public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     private String name;
     private Integer age;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy="user")
+    @OneToMany(mappedBy="user")
     @Cascade(CascadeType.ALL)
     private List<Car> cars;
 }

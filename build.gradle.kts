@@ -25,10 +25,11 @@ repositories {
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.2.3")
-	implementation("org.mariadb.jdbc:mariadb-java-client:3.3.3")
+	implementation("org.postgresql:postgresql:42.7.3")
 	implementation("org.springframework.boot:spring-boot-starter-validation:3.2.3")
 	implementation("org.springframework.boot:spring-boot-starter-actuator:3.2.3")
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
+	implementation("org.liquibase:liquibase-core:4.27.0")
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")

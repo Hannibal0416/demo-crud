@@ -16,11 +16,11 @@ public class CourseRegistration {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "student_id", foreignKey= @ForeignKey(name="course_registration_student_id_key", value = ConstraintMode.PROVIDER_DEFAULT))
     private Student student;
 
     @ManyToOne
-    @JoinColumn(name = "course_id")
+    @JoinColumn(name = "course_id", foreignKey= @ForeignKey(name="course_registration_course_id_key", value = ConstraintMode.PROVIDER_DEFAULT))
     private Course course;
 
     @Column(name = "registered_at")

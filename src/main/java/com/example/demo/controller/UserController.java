@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.response.UserResponse;
 import com.example.demo.service.IService;
 import com.example.demo.request.UserRequest;
+import com.example.demo.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import java.util.List;
 @RestController
 public class UserController {
     @Autowired
-    private IService<UserRequest,UserResponse> userService;
+    private UserService userService;
 
     @GetMapping("users/{id}")
     @Operation(summary = "Get a user by id", description = "Retrieve a user")
@@ -27,6 +28,7 @@ public class UserController {
     public List<UserResponse> getUsers(@RequestParam(defaultValue = "0") Integer offset, @RequestParam(defaultValue = "10")Integer limit) {
         return userService.getAll(offset, limit);
     }
+
     @PostMapping("users")
     @Operation(summary = "Create a user", description = "Create a user")
     public @ResponseStatus(HttpStatus.CREATED) void postUser(@Valid @RequestBody UserRequest user) {

@@ -33,8 +33,8 @@ public class CarService implements ICarService{
 
     public List<CarResponse> getAll(Integer offset, Integer limit) {
         Pageable pageable = PageRequest.of(offset, limit, Sort.by("id"));
-        Iterable<Car> cars= carRepository.findAll(pageable);
-        return StreamSupport.stream(cars.spliterator(), false).map( car -> {
+        List<Car> cars= carRepository.findAll(pageable);
+        return cars.stream().map( car -> {
             CarResponse carResponse = new CarResponse();
             BeanUtils.copyProperties(car, carResponse);
             if (car.getUser() != null ) {
