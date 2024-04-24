@@ -35,10 +35,11 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.mockito:mockito-core:5.11.0")
 	testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.2")
-	testImplementation("com.h2database:h2:2.2.224")
+	implementation("com.h2database:h2:2.2.224")
 
 }
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+	environment("LIQUIBASE_DUPLICATE_FILE_MODE", "WARN")
 }
