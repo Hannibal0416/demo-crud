@@ -3,6 +3,7 @@ plugins {
 	id("org.springframework.boot") version "3.2.3"
 	id("io.spring.dependency-management") version "1.1.4"
 	id("org.graalvm.buildtools.native") version "0.9.28"
+	id("com.diffplug.spotless") version "6.25.0"
 }
 
 group = "com.example"
@@ -10,6 +11,16 @@ version = "0.0.1-SNAPSHOT"
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_21
+}
+
+spotless {
+	java {
+		importOrder()
+		removeUnusedImports()
+		eclipse().configFile("${project.rootDir}/assets/intellij-java-google-style.xml")
+		indentWithSpaces()
+		formatAnnotations()
+	}
 }
 
 configurations {
