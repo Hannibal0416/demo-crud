@@ -1,17 +1,16 @@
 package com.example.demo.service;
 
-import com.example.demo.request.CarRequest;
-
 import java.util.List;
 
-public interface IService<REQ,RES> {
-    List<RES> getAll(Integer offset, Integer limit);
-    RES getById(Long id);
+public interface IService<REQ, RES> {
+  List<RES> getAll(Integer offset, Integer limit);
 
-    void add(REQ req);
+  RES getById(Long id);
 
-    void update(Long id,REQ req);
+  void add(REQ req);
 
-    void delete(Long id);
+  void update(Long id, REQ req);
+
+  void delete(Long id);
 
 }

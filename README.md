@@ -33,12 +33,20 @@ The collection.json is under the assets folder.
 Table and data will be initialized every time you restart the app.
 They will be destroyed automatically after the app is stopped.
 
+
+---
+
 ### google java format scheme
+https://github.com/google/styleguide/blob/gh-pages/eclipse-java-google-style.xml
 https://github.com/google/styleguide/blob/gh-pages/intellij-java-google-style.xml
 
 
 ### spotless gradle plugin
-https://github.com/diffplug/spotless/blob/main/plugin-gradle/README.md
+https://github.com/ragurney/spotless-intellij-gradle
+format all java files
+```dtd
+./gradlew spotlessApply
+```
 
 ### Google Java Format
 https://github.com/sherter/google-java-format-gradle-plugin
@@ -68,3 +76,24 @@ Execute the task verifyGoogleJavaFormat to verify that all *.java files are form
 ### CheckStyle
 https://checkstyle.org/index.html
 https://github.com/jshiell/checkstyle-idea/blob/main/README.md
+```dtd
+./gradlew checkstyleMain
+```
+
+### SpotBug
+https://github.com/spotbugs/spotbugs-gradle-plugin
+```dtd
+./gradlew spotbugsMain
+```
+
+### PMD
+https://pmd.github.io/pmd/index.html
+```dtd
+./gradlew pmdMain
+```
+
+### error prone
+https://github.com/tbroyer/gradle-errorprone-plugin
+
+Null away
+https://github.com/uber/NullAway/wiki/Configuration

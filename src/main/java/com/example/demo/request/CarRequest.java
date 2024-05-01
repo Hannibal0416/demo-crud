@@ -5,6 +5,5 @@ import lombok.Data;
 
 @Data
 public class CarRequest {
-    @NotNull
-    private String model;
+  @NotNull private String model;
 }
