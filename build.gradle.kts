@@ -124,6 +124,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.2.3")
 	implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j:3.1.1")
+	implementation("io.github.resilience4j:resilience4j-bulkhead:2.1.0")
 	implementation("org.postgresql:postgresql:42.7.3")
 	implementation("org.springframework.boot:spring-boot-starter-validation:3.2.3")
 	implementation("org.springframework.boot:spring-boot-starter-actuator:3.2.3")

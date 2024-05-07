@@ -36,6 +36,11 @@ public class ExternalService implements IExternalService{
     ResponseEntity<TodoResponse> response = restTemplate.exchange(
         (url + id), HttpMethod.GET, entity,
         TodoResponse.class);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      log.error("err",e);
+    }
     return response.getBody();
   }
 

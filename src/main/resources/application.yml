@@ -21,3 +21,7 @@ resilience4j:
         permitted-number-of-calls-in-half-open-state: 3
         sliding-window-size: 10
         register-health-indicator: true
+  bulkhead:
+    instances:
+      todo:
+        max-concurrent-calls: 1

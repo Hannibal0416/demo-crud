@@ -1,5 +1,6 @@
 package com.example.demo.advice;
 
+import io.github.resilience4j.bulkhead.BulkheadFullException;
 import java.util.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -67,5 +68,12 @@ class GlobalControllerExceptionHandler {
     log.error(ERR_TEMPLATE, ex, request);
     List<String> errors = Collections.singletonList(ex.getMessage());
     return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.NOT_FOUND);
+  }
+
+  @ExceptionHandler(BulkheadFullException.class)
+  public ResponseEntity<Map<String, List<String>>> bulkheadException(BulkheadFullException ex, WebRequest request) {
+    log.error(ERR_TEMPLATE, ex, request);
+    List<String> errors = Collections.singletonList(ex.getMessage());
+    return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.TOO_MANY_REQUESTS);
   }
 }
