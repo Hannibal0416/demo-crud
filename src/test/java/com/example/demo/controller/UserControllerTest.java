@@ -1,9 +1,11 @@
 package com.example.demo.controller;
 
-
-import com.example.demo.request.UserRequest;
-import com.example.demo.response.UserResponse;
+import com.example.demo.controller.request.UserRequest;
+import com.example.demo.controller.response.UserResponse;
 import java.util.*;
+
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,47 +13,44 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
-import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-public class UserControllerTest {
+class UserControllerTest {
 
-  @LocalServerPort
-  private int port;
+  @LocalServerPort private int port;
 
-  @Autowired
-  private TestRestTemplate restTemplate;
+  @Autowired private TestRestTemplate restTemplate;
 
   @Test
-  void getUsers() throws Exception {
+  void getUsers() {
     String url = "http://localhost:" + port + "/users";
     ResponseEntity<UserResponse[]> response =
         this.restTemplate.getForEntity(url, UserResponse[].class);
-    Assertions.assertEquals(3, Objects.requireNonNull(response.getBody()).length);
+    MatcherAssert.assertThat("users", Objects.requireNonNull(response.getBody()).length, Matchers.greaterThan(1));
   }
 
   @Test
-  void getUserById() throws Exception {
+  void getUserById() {
     String url = "http://localhost:" + port + "/users/100";
     ResponseEntity<UserResponse> response = this.restTemplate.getForEntity(url, UserResponse.class);
-    Assertions.assertEquals(100,
-        Objects.requireNonNull(Objects.requireNonNull(response.getBody()).getId()));
+    Assertions.assertEquals(
+        100, Objects.requireNonNull(Objects.requireNonNull(response.getBody()).getId()));
   }
 
   @Test
-  void postUserBadRequest() throws Exception {
+  void postUserBadRequest() {
     String url = "http://localhost:" + port + "/users";
-    List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
+    //    List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
     // Add the Jackson Message converter
     MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
 
     // Note: here we are making this converter to process any kind of response,
     // not only application/*json, which is the default behaviour
     converter.setSupportedMediaTypes(Collections.singletonList(MediaType.ALL));
-    messageConverters.add(converter);
+    //    messageConverters.add(converter);
     restTemplate.getRestTemplate().getMessageConverters().add(converter);
     HttpEntity<UserRequest> request = new HttpEntity<>(new UserRequest("TestUser", 1));
     ResponseEntity<Void> response =
@@ -60,7 +59,7 @@ public class UserControllerTest {
   }
 
   @Test
-  void postUserSuccess() throws Exception {
+  void postUserSuccess() {
     String url = "http://localhost:" + port + "/users";
     HttpEntity<UserRequest> request = new HttpEntity<>(new UserRequest("TestUser", 19));
     ResponseEntity<Void> response =

@@ -35,7 +35,7 @@ They will be destroyed automatically after the app is stopped.
 
 
 ---
-
+## Linters
 ### google java format scheme
 https://github.com/google/styleguide/blob/gh-pages/eclipse-java-google-style.xml
 https://github.com/google/styleguide/blob/gh-pages/intellij-java-google-style.xml
@@ -97,3 +97,14 @@ https://github.com/tbroyer/gradle-errorprone-plugin
 
 Null away
 https://github.com/uber/NullAway/wiki/Configuration
+
+--- 
+## Test Framework
+### Pitest
+https://gradle-pitest-plugin.solidsoft.info/
+
+
+### Spoke framework
+
+Docs
+https://spockframework.org/spock/docs/2.3/all_in_one.html

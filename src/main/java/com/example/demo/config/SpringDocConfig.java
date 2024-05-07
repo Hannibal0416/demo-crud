@@ -12,7 +12,11 @@ public class SpringDocConfig {
 
   @Bean
   public OpenAPI baseOpenAPI() {
-    return new OpenAPI().info(new Info().title("TAO DEMO CRUD")
-        .description("SpringBoot 3.x application").version("v0.0.1"));
+    return new OpenAPI()
+        .info(
+            new Info()
+                .title("TAO DEMO CRUD")
+                .description("SpringBoot 3.x application")
+                .version("v0.0.1"));
   }
 }

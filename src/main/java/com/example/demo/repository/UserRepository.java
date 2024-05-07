@@ -1,6 +1,6 @@
 package com.example.demo.repository;
 
-import com.example.demo.entity.User;
+import com.example.demo.domain.User;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
@@ -23,13 +22,11 @@ public interface UserRepository extends CrudRepository<User, Long> {
   List<User> findAllUsers(Pageable pageable);
 
   @Modifying(clearAutomatically = true)
-  @Query("""
+  @Query(
+      """
         UPDATE User u
         SET u.name= :#{#user.name}, u.age = :#{#user.age}
         WHERE u.id = :#{#user.id}
       """)
   int updateUserById(@Param("user") User user);
-
-
-
 }

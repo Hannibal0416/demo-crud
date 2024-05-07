@@ -7,10 +7,9 @@ public interface IService<REQ, RES> {
 
   RES getById(Long id);
 
-  void add(REQ req);
+  Long add(REQ req);
 
   void update(Long id, REQ req);
 
   void delete(Long id);
-
 }

@@ -1,4 +1,4 @@
-package com.example.demo.response;
+package com.example.demo.controller.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.List;

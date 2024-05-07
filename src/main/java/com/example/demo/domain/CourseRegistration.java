@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.example.demo.domain;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
@@ -15,15 +15,21 @@ public class CourseRegistration {
   private Long id;
 
   @ManyToOne
-  @JoinColumn(name = "student_id",
-      foreignKey = @ForeignKey(name = "course_registration_student_id_key",
-          value = ConstraintMode.PROVIDER_DEFAULT))
+  @JoinColumn(
+      name = "student_id",
+      foreignKey =
+          @ForeignKey(
+              name = "course_registration_student_id_key",
+              value = ConstraintMode.PROVIDER_DEFAULT))
   private Student student;
 
   @ManyToOne
-  @JoinColumn(name = "course_id",
-      foreignKey = @ForeignKey(name = "course_registration_course_id_key",
-          value = ConstraintMode.PROVIDER_DEFAULT))
+  @JoinColumn(
+      name = "course_id",
+      foreignKey =
+          @ForeignKey(
+              name = "course_registration_course_id_key",
+              value = ConstraintMode.PROVIDER_DEFAULT))
   private Course course;
 
   @Column(name = "registered_at")
@@ -31,5 +37,4 @@ public class CourseRegistration {
 
   @Column(name = "grade")
   private int grade;
-
 }

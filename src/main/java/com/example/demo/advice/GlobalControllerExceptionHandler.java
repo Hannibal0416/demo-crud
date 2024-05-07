@@ -1,16 +1,7 @@
-package com.example.demo.controller;
+package com.example.demo.advice;
 
-import com.example.demo.service.UserService;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
+import java.util.*;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.http.HttpHeaders;
@@ -19,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
@@ -27,11 +17,13 @@ import org.springframework.web.context.request.WebRequest;
 @Slf4j
 class GlobalControllerExceptionHandler {
 
+  private static final String ERR_TEMPLATE = "error: {}, request:{}";
+
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<Map<String, List<String>>> handleValidationErrors(
       MethodArgumentNotValidException ex) {
-    List<String> errors = ex.getBindingResult().getFieldErrors().stream()
-        .map(FieldError::getDefaultMessage).collect(Collectors.toList());
+    List<String> errors =
+        ex.getBindingResult().getFieldErrors().stream().map(FieldError::getDefaultMessage).toList();
     return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.BAD_REQUEST);
   }
 
@@ -41,27 +33,28 @@ class GlobalControllerExceptionHandler {
     return errorResponse;
   }
 
-  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) // 500
   @ExceptionHandler(RuntimeException.class)
-  public ResponseEntity<Map<String, List<String>>> handleServerError(RuntimeException ex,
-      WebRequest request) {
-    log.error("error: {}, request:{}", ex, request);
+  public ResponseEntity<Map<String, List<String>>> handleServerError(
+      RuntimeException ex, WebRequest request) {
+    log.error(ERR_TEMPLATE, ex, request);
     List<String> errors = Arrays.asList(ex.getMessage(), request.getContextPath());
-    return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(),
-        HttpStatus.INTERNAL_SERVER_ERROR);
+    return new ResponseEntity<>(
+        getErrorsMap(errors), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
   }
 
-  @ResponseStatus(HttpStatus.CONFLICT) // 409
   @ExceptionHandler(DataIntegrityViolationException.class)
-  public void handleConflict() {}
-
-  @ResponseStatus(HttpStatus.NOT_FOUND) // 404
-  @ExceptionHandler(DataRetrievalFailureException.class)
-  public ResponseEntity<Map<String, List<String>>> handleNotFound(DataRetrievalFailureException ex,
-      WebRequest request) {
-    log.error("error: {}, request:{}", ex, request);
+  public ResponseEntity<Map<String, List<String>>> handleConflict(
+      RuntimeException ex, WebRequest request) {
+    log.error(ERR_TEMPLATE, ex, request);
     List<String> errors = Collections.singletonList(ex.getMessage());
-    return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(),
-        HttpStatus.INTERNAL_SERVER_ERROR);
+    return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.CONFLICT);
+  }
+
+  @ExceptionHandler({DataRetrievalFailureException.class, NoSuchElementException.class})
+  public ResponseEntity<Map<String, List<String>>> handleNotFound(
+      RuntimeException ex, WebRequest request) {
+    log.error(ERR_TEMPLATE, ex, request);
+    List<String> errors = Collections.singletonList(ex.getMessage());
+    return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.NOT_FOUND);
   }
 }

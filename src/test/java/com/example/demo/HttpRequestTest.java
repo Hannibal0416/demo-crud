@@ -13,15 +13,15 @@ import org.springframework.test.context.ActiveProfiles;
 @ActiveProfiles("test")
 class HttpRequestTest {
 
-  @LocalServerPort
-  private int port;
+  @LocalServerPort private int port;
 
-  @Autowired
-  private TestRestTemplate restTemplate;
+  @Autowired private TestRestTemplate restTemplate;
 
   @Test
   void healthCheck() throws Exception {
-    assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/actuator/health",
-        String.class)).contains("{\"status\":\"UP\"}");
+    assertThat(
+            this.restTemplate.getForObject(
+                "http://localhost:" + port + "/actuator/health", String.class))
+        .contains("{\"status\":\"UP\"}");
   }
 }

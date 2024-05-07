@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.example.demo.domain;
 
 import jakarta.persistence.*;
 import java.util.HashSet;
@@ -18,14 +18,15 @@ public class Student {
   String name;
 
   @ManyToMany
-  @JoinTable(name = "course_like", joinColumns = @JoinColumn(name = "student_id"),
+  @JoinTable(
+      name = "course_like",
+      joinColumns = @JoinColumn(name = "student_id"),
       inverseJoinColumns = @JoinColumn(name = "course_id"),
-      foreignKey = @ForeignKey(name = "course_like_student_id_key",
-          value = ConstraintMode.PROVIDER_DEFAULT),
-      inverseForeignKey = @ForeignKey(name = "course_like_course_id_key",
-          value = ConstraintMode.PROVIDER_DEFAULT))
+      foreignKey =
+          @ForeignKey(name = "course_like_student_id_key", value = ConstraintMode.PROVIDER_DEFAULT),
+      inverseForeignKey =
+          @ForeignKey(name = "course_like_course_id_key", value = ConstraintMode.PROVIDER_DEFAULT))
   Set<Course> likedCourses;
-
 
   @OneToMany(mappedBy = "student")
   private Set<CourseRating> ratings = new HashSet<>();

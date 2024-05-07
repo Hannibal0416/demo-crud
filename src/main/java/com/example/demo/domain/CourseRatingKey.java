@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.example.demo.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -16,5 +16,4 @@ public class CourseRatingKey implements Serializable {
 
   @Column(name = "course_id")
   private Long courseId;
-
 }
