@@ -25,3 +25,12 @@ resilience4j:
     instances:
       todo:
         max-concurrent-calls: 1
+  retry:
+    instances:
+      retry-todo:
+        maxAttempts: 3
+        waitDuration: 3s
+        retryExceptions:
+          - org.springframework.web.client.HttpClientErrorException
+        ignoreExceptions:
+          - org.springframework.dao.DataRetrievalFailureException

@@ -129,14 +129,34 @@
 					"body": null
 				},
 				{
-					"name": "Get todo",
+					"name": "Get Todo",
 					"originalRequest": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\" : \"1\",\n    \"url\" : \"https://jsonplaceholder.typicode.com/todos/\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{base_url}}",
+							"raw": "{{base_url}}/todo/get",
 							"host": [
 								"{{base_url}}"
+							],
+							"path": [
+								"todo",
+								"get"
 							]
 						}
 					},
@@ -151,9 +171,50 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}",
+							"raw": "{{base_url}}/actuator/health",
 							"host": [
 								"{{base_url}}"
+							],
+							"path": [
+								"actuator",
+								"health"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "Retry todo",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\" : \"1\",\n    \"url\" : \"https://jsonplaceholder.typicode.com/todos/\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/todo/retry",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"todo",
+								"retry"
 							]
 						}
 					},

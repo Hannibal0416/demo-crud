@@ -22,4 +22,10 @@ public class TodoController {
   public Response getTodo(@RequestBody TodoRequest request) {
     return externalService.getTodo(request.getUrl(), request.getId());
   }
+
+  @GetMapping("retry")
+  public Response retry(@RequestBody TodoRequest request) {
+    return externalService.retryTodo(request.getUrl(), request.getId());
+  }
+
 }
