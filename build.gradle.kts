@@ -47,7 +47,7 @@ spotless {
 	}
 
 	groovy {
-		
+
 	}
 }
 
@@ -123,6 +123,7 @@ var spockReportsVersion = "2.5.1-groovy-4.0"
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.2.3")
+	implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j:3.1.1")
 	implementation("org.postgresql:postgresql:42.7.3")
 	implementation("org.springframework.boot:spring-boot-starter-validation:3.2.3")
 	implementation("org.springframework.boot:spring-boot-starter-actuator:3.2.3")
@@ -130,6 +131,7 @@ dependencies {
 	implementation("org.liquibase:liquibase-core:4.27.0")
 	implementation("com.google.guava:guava:33.2.0-jre")
 	implementation("com.h2database:h2:2.2.224")
+
 
 	compileOnly("org.projectlombok:lombok")
 

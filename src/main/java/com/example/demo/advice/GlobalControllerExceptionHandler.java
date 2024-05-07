@@ -11,6 +11,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.context.request.WebRequest;
 
 @RestControllerAdvice
@@ -40,6 +42,15 @@ class GlobalControllerExceptionHandler {
     List<String> errors = Arrays.asList(ex.getMessage(), request.getContextPath());
     return new ResponseEntity<>(
         getErrorsMap(errors), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+  }
+
+  @ExceptionHandler(RestClientException.class)
+  public ResponseEntity<Map<String, List<String>>> handleGatewayError(
+      RuntimeException ex, WebRequest request) {
+    log.error(ERR_TEMPLATE, ex, request);
+    List<String> errors = Arrays.asList(ex.getMessage(), request.getContextPath());
+    return new ResponseEntity<>(
+        getErrorsMap(errors), new HttpHeaders(), HttpStatus.BAD_GATEWAY);
   }
 
   @ExceptionHandler(DataIntegrityViolationException.class)
