@@ -12,9 +12,12 @@ import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 @Service
@@ -27,6 +30,7 @@ public class ExternalService implements IExternalService{
 
   @Override
   @CircuitBreaker(name = "todo-service", fallbackMethod = "fallbackMethod")
+  @Retry(name = "retry-todo")
   public Response getTodo(String url, String id) {
     log.info("todo-service url {}, id {}", url,id);
     HttpHeaders headers = new HttpHeaders();

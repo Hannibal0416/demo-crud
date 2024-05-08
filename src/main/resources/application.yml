@@ -11,6 +11,7 @@ management:
       enabled: true
 resilience4j:
   circuitbreaker:
+    circuit-breaker-aspect-order: 1
     instances:
       todo-service:
         sliding-window-type: COUNT_BASED
@@ -26,6 +27,7 @@ resilience4j:
       todo:
         max-concurrent-calls: 1
   retry:
+    retry-aspect-order: 2
     instances:
       retry-todo:
         maxAttempts: 3
